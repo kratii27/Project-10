@@ -7,7 +7,7 @@ import javax.persistence.Table;
 import com.rays.common.BaseDTO;
 
 @Entity
-@Table(name = "ROLE")
+@Table(name = "ST_ROLE")
 public class RoleDTO extends BaseDTO {
 
 	@Column(name = "NAME", length = 50)

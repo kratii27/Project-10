@@ -63,23 +63,35 @@ public class BaseCtl<T extends BaseDTO, S extends BaseServiceInt<T>, F extends B
 		userContext.setRoleId(1l);
 		userContext.setRoleName("admin");
 		
-		if (dto.getId() != null && dto.getId() > 0) {
-			System.out.println("before find by unique key");
-			T existsDTO = service.findByUniqueKey(dto.getUniqueKey(), dto.getUniqueValue(), userContext);
-			System.out.println(" data " + existsDTO);
-			if (existsDTO != null && existsDTO.getId() != dto.getId()) {
-				res.addMessage(dto.getLabel() + " already exists");
-				res.setSuccess(false);
-				return res;
-			}
-		} else if (dto.getUniqueKey() != null && !dto.getUniqueKey().equals("")) {
-			T existsDTO = service.findByUniqueKey(dto.getUniqueKey(), dto.getUniqueValue(), userContext);
-			if (existsDTO != null) {
-				res.addMessage(dto.getLabel() + " already exists while adding");
-				res.setSuccess(false);
-				return res;
-			}
-		}
+		
+		if (dto.getUniqueKey() != null && !dto.getUniqueKey().equals("")) {
+			
+	        T existsDTO = service.findByUniqueKey(dto.getUniqueKey(), dto.getUniqueValue(), userContext);
+
+	        if (existsDTO != null && (dto.getId() == null || !existsDTO.getId().equals(dto.getId()))) {
+	            res.addMessage(dto.getLabel() + " already exists");
+	            res.setSuccess(false);
+	            return res;
+	        }
+	    }
+		
+//		if (dto.getId() != null && dto.getId() > 0) {
+//			System.out.println("before find by unique key");
+//			T existsDTO = service.findByUniqueKey(dto.getUniqueKey(), dto.getUniqueValue(), userContext);
+//			System.out.println(" data " + existsDTO);
+//			if (existsDTO != null && existsDTO.getId() != dto.getId()) {
+//				res.addMessage(dto.getLabel() + " already exists");
+//				res.setSuccess(false);
+//				return res;
+//			}
+//		} else if (dto.getUniqueKey() != null && !dto.getUniqueKey().equals("")) {
+//			T existsDTO = service.findByUniqueKey(dto.getUniqueKey(), dto.getUniqueValue(), userContext);
+//			if (existsDTO != null) {
+//				res.addMessage(dto.getLabel() + " already exists while adding");
+//				res.setSuccess(false);
+//				return res;
+//			}
+//		}
 		
 		Long exId = dto.getId();
 		
