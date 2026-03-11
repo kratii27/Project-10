@@ -41,21 +41,14 @@ public class BaseCtl<T extends BaseDTO, S extends BaseServiceInt<T>, F extends B
 	@Autowired
 	private S service;
 	
+//	protected UserContext userContext = null;
+	
 	
 	@PostMapping(value = "save")
 	public ORSResponse save(@RequestBody @Valid F form, BindingResult bindingResult) {
 		
 		ORSResponse res = new ORSResponse();
 		
-		res = validate(bindingResult);
-		
-		if (!res.success) {
-			return res;
-		}
-		
-		T dto = form.getDto();
-		
-
 		UserContext userContext = new UserContext();
 		userContext.setName("krati");
 		userContext.setLoginId("krati2@gmail.com");
@@ -64,6 +57,14 @@ public class BaseCtl<T extends BaseDTO, S extends BaseServiceInt<T>, F extends B
 		userContext.setRoleName("admin");
 		
 		
+		res = validate(bindingResult);
+		
+		if (!res.success) {
+			return res;
+		}
+		
+		T dto = form.getDto();
+	
 		if (dto.getUniqueKey() != null && !dto.getUniqueKey().equals("")) {
 			
 	        T existsDTO = service.findByUniqueKey(dto.getUniqueKey(), dto.getUniqueValue(), userContext);
@@ -123,6 +124,7 @@ public class BaseCtl<T extends BaseDTO, S extends BaseServiceInt<T>, F extends B
 		userContext.setRoleId(1l);
 		userContext.setRoleName("admin");
 		
+		
 		for (long id : ids) {
 			service.delete(id, userContext);
 		}
@@ -144,6 +146,7 @@ public class BaseCtl<T extends BaseDTO, S extends BaseServiceInt<T>, F extends B
 		userContext.setRoleId(1l);
 		userContext.setRoleName("admin");
 		
+		
 		T dto = service.findByPk(id, userContext);
 		
 		if (dto != null) {
@@ -163,18 +166,19 @@ public class BaseCtl<T extends BaseDTO, S extends BaseServiceInt<T>, F extends B
 	public ORSResponse search(@RequestBody F form, @PathVariable(required = false) int pageNo){
 		
 		ORSResponse res = new ORSResponse();
-	
-		T dto = form.getDto();
-		pageNo = (pageNo < 0 ) ? 0 : pageNo;
 		
-		int pageSize = 5;
-
 		UserContext userContext = new UserContext();
 		userContext.setName("krati");
 		userContext.setLoginId("krati2@gmail.com");
 		userContext.setUserId(1l);
 		userContext.setRoleId(1l);
 		userContext.setRoleName("admin");
+		
+	
+		T dto = form.getDto();
+		pageNo = (pageNo < 0 ) ? 0 : pageNo;
+		
+		int pageSize = 5;
 		
 		List<T> list = service.search(dto, pageNo, pageSize, userContext);
 		List<T> nextListSize = service.search(dto, pageNo + 1, pageSize, userContext);

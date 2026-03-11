@@ -46,16 +46,5 @@ public class RoleDAOImpl extends BaseDAOImpl<RoleDTO> implements RoleDAOint {
 		return conditions;
 	}
 	
-//	@Override
-//	public RoleDTO findByUniqueKey(String attribute, Object value, UserContext userContext) {
-//		CriteriaBuilder builder = entityManager.getCriteriaBuilder();
-//		CriteriaQuery<RoleDTO> criteriaQuery = builder.createQuery(getDTOClass());
-//		Root<RoleDTO> qRoot= criteriaQuery.from(getDTOClass());
-//		Predicate condition = builder.equal(qRoot.get(attribute), value);
-//		criteriaQuery.where(condition);
-//		TypedQuery<RoleDTO> typedQuery = entityManager.createQuery(criteriaQuery);
-//		RoleDTO dto = typedQuery.getResultList();
-//		return dto;
-//	}
 	
 }

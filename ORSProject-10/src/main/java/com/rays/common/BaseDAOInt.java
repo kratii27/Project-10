@@ -16,7 +16,7 @@ public interface BaseDAOInt<T extends BaseDTO> {
 	
 	public List<T> search(T dto, int pageNo, int pageSize, UserContext userContext);
 	
-	public List<T> search(T dto, UserContext userContext);
+	public List search(T dto, UserContext userContext);
 
 
 }

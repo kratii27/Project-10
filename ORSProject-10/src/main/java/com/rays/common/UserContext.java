@@ -1,5 +1,7 @@
 package com.rays.common;
 
+import com.rays.dto.UserDTO;
+
 public class UserContext {
 
 	private Long userId = 0l;
@@ -7,6 +9,7 @@ public class UserContext {
 	private String name = null;
 	private Long roleId = 1l;
 	private String roleName = "root";
+	private UserDTO userDTO = null;
 	
 	public UserContext() {
 		// TODO Auto-generated constructor stub
@@ -51,14 +54,22 @@ public class UserContext {
 	public void setRoleName(String roleName) {
 		this.roleName = roleName;
 	}
+	
+	public UserDTO getUserDTO() {
+		return userDTO;
+	}
 
-	public UserContext(Long userId, String loginId, String name, Long roleId, String roleName) {
-		super();
-		this.userId = userId;
-		this.loginId = loginId;
-		this.name = name;
-		this.roleId = roleId;
-		this.roleName = roleName;
+	public void setUserDTO(UserDTO userDTO) {
+		this.userDTO = userDTO;
+	}
+
+	public UserContext(UserDTO dto) {
+		this.userDTO = dto;
+		this.userId = dto.getId();
+		this.loginId = dto.getLogin();
+		this.name = dto.getName();
+		this.roleId = dto.getRoleId();
+		this.roleName = dto.getRoleName();
 	}
 	
 	

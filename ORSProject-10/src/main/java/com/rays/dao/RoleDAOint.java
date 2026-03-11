@@ -5,7 +5,5 @@ import com.rays.common.UserContext;
 import com.rays.dto.RoleDTO;
 
 public interface RoleDAOint extends BaseDAOInt<RoleDTO> {
-	
-	
 
 }

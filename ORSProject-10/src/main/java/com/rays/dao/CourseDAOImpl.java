@@ -1,5 +1,6 @@
 package com.rays.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.criteria.CriteriaBuilder;
@@ -14,13 +15,23 @@ public class CourseDAOImpl extends BaseDAOImpl<CourseDTO> implements CourseDAOIn
 	@Override
 	public Class<CourseDTO> getDTOClass() {
 		// TODO Auto-generated method stub
-		return null;
+		return CourseDTO.class;
 	}
 
 	@Override
 	public List<Predicate> getWhereClause(CourseDTO dto, CriteriaBuilder criteriaBuilder, Root<CourseDTO> qRoot) {
-		// TODO Auto-generated method stub
-		return null;
+		List<Predicate> conditions = new ArrayList<Predicate>();
+		if (!isEmptyString(dto.getName())) {
+			conditions.add(criteriaBuilder.like(qRoot.get("name"), dto.getName() + "%"));
+		}
+		if (!isEmptyString(dto.getDescription())) {
+			conditions.add(criteriaBuilder.like(qRoot.get("description"), dto.getDescription() + "%"));
+		}
+		if (!isEmptyString(dto.getDuration())) {
+			conditions.add(criteriaBuilder.like(qRoot.get("duration"), dto.getDuration() + "%"));
+		}
+		
+		return conditions;
 	}
 
 }
