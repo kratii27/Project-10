@@ -8,12 +8,14 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import com.rays.common.BaseDAOImpl;
 import com.rays.common.UserContext;
 import com.rays.dto.MarksheetDTO;
 import com.rays.dto.StudentDTO;
 
+@Repository
 public class MarksheetDAOImpl extends BaseDAOImpl<MarksheetDTO> implements MarksheetDAOInt {
 	
 	@Autowired

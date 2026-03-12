@@ -11,13 +11,6 @@ import com.rays.dto.RoleDTO;
 @Service
 @Transactional
 public class RoleServiceImpl extends BaseServiceImpl<RoleDTO, RoleDAOint> implements RoleServiceInt{
-
-	
-	@Override
-	@Transactional(readOnly = true)
-	public RoleDTO findByName(String value, UserContext userContext) {
-		return dao.findByUniqueKey("name", value, userContext);
-	}
 	
 
 }

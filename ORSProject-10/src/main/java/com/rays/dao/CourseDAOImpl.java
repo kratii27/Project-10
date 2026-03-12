@@ -7,9 +7,12 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
+import org.springframework.stereotype.Repository;
+
 import com.rays.common.BaseDAOImpl;
 import com.rays.dto.CourseDTO;
 
+@Repository
 public class CourseDAOImpl extends BaseDAOImpl<CourseDTO> implements CourseDAOInt {
 
 	@Override

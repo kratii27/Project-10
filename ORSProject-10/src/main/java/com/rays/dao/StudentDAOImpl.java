@@ -8,12 +8,14 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import com.rays.common.BaseDAOImpl;
 import com.rays.common.UserContext;
 import com.rays.dto.CollegeDTO;
 import com.rays.dto.StudentDTO;
 
+@Repository
 public class StudentDAOImpl extends BaseDAOImpl<StudentDTO> implements StudentDAOInt {
 	
 	@Autowired
@@ -40,7 +42,7 @@ public class StudentDAOImpl extends BaseDAOImpl<StudentDTO> implements StudentDA
 		if (!isEmptyString(dto.getEmail())) {
 			conditions.add(criteriaBuilder.like(qRoot.get("email"), dto.getEmail() + "%"));
 		}
-		if (!isNotNull(dto.getDob())) {
+		if (isNotNull(dto.getDob())) {
 			conditions.add(criteriaBuilder.equal(qRoot.get("dob"), dto.getDob()));
 		}
 		if (!isEmptyString(dto.getPhoneNo())) {

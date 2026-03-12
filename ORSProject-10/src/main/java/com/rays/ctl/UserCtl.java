@@ -27,14 +27,7 @@ public class UserCtl extends BaseCtl<UserDTO, UserServiceInt, UserForm> {
 	@GetMapping(value = "preload")
 	public ORSResponse preload() {
 		ORSResponse res = new ORSResponse(true);
-		
-		UserContext userContext = new UserContext();
-		userContext.setName("krati");
-		userContext.setLoginId("krati2@gmail.com");
-		userContext.setUserId(1l);
-		userContext.setRoleId(1l);
-		userContext.setRoleName("admin");
-		
+
 		RoleDTO dto = new RoleDTO();		
 		List<DropdownList> list = roleService.search(dto, userContext);
 		res.addResult("roleList", list);

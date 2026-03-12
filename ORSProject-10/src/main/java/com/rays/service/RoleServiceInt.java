@@ -6,6 +6,4 @@ import com.rays.dto.RoleDTO;
 
 public interface RoleServiceInt extends BaseServiceInt<RoleDTO> {
 
-	public RoleDTO findByName(String value, UserContext userContext);
-
 }

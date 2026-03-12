@@ -8,13 +8,15 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import com.rays.common.BaseDAOImpl;
 import com.rays.common.UserContext;
 import com.rays.dto.CourseDTO;
 import com.rays.dto.SubjectDTO;
 
-public class SubjectDAOImpl extends BaseDAOImpl<SubjectDTO> {
+@Repository
+public class SubjectDAOImpl extends BaseDAOImpl<SubjectDTO> implements SubjectDAOInt {
 	
 	@Autowired
 	CourseDAOInt courseDao;

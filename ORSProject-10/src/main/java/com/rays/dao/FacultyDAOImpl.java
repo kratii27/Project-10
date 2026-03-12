@@ -8,6 +8,7 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import com.rays.common.BaseDAOImpl;
 import com.rays.common.UserContext;
@@ -16,7 +17,8 @@ import com.rays.dto.CourseDTO;
 import com.rays.dto.FacultyDTO;
 import com.rays.dto.SubjectDTO;
 
-public class FacultyDAOImpl extends BaseDAOImpl<FacultyDTO> {
+@Repository
+public class FacultyDAOImpl extends BaseDAOImpl<FacultyDTO> implements FacultyDAOInt {
 
 	@Autowired
 	CollegeDAOInt collegeDAO;
@@ -39,7 +41,7 @@ public class FacultyDAOImpl extends BaseDAOImpl<FacultyDTO> {
 		List<Predicate> conditions = new ArrayList<Predicate>();
 
 		if (!isEmptyString(dto.getFirstName())) {
-			conditions.add(criteriaBuilder.like(qRoot.get("firstName"), dto.getEmail() + "%"));
+			conditions.add(criteriaBuilder.like(qRoot.get("firstName"), dto.getFirstName() + "%"));
 		}
 		if (!isEmptyString(dto.getEmail())) {
 			conditions.add(criteriaBuilder.like(qRoot.get("email"), dto.getEmail() + "%"));

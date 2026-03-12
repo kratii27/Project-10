@@ -8,11 +8,16 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import com.rays.common.BaseDAOImpl;
+import com.rays.common.UserContext;
+import com.rays.dto.CourseDTO;
+import com.rays.dto.SubjectDTO;
 import com.rays.dto.TimetableDTO;
 
-public class TimetableDAOImpl extends BaseDAOImpl<TimetableDTO> {
+@Repository
+public class TimetableDAOImpl extends BaseDAOImpl<TimetableDTO> implements TimetableDAOInt {
 	
 	@Autowired
 	SubjectDAOInt subjectDAO;
@@ -39,6 +44,18 @@ public class TimetableDAOImpl extends BaseDAOImpl<TimetableDTO> {
 			conditions.add(criteriaBuilder.like(qRoot.get("courseName"), dto.getCourseName() + "%"));
 		}
 		return conditions;
+	}
+	
+	@Override
+	protected void populate(TimetableDTO dto, UserContext userContext) {
+		if (dto.getCourseId() != null && dto.getCourseId() > 0) {
+			CourseDTO courseDTO = courseDAO.findByPk(dto.getCourseId(), userContext);
+			dto.setCourseName(courseDTO.getName());
+		}
+		if (dto.getSubjectId() != null && dto.getSubjectId()  > 0) {
+			SubjectDTO subjectDTO = subjectDAO.findByPk(dto.getSubjectId(), userContext);
+			dto.setSubjectName(subjectDTO.getName());
+		}
 	}
 
 }

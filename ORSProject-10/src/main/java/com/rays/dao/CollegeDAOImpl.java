@@ -13,7 +13,7 @@ import com.rays.common.BaseDAOImpl;
 import com.rays.dto.CollegeDTO;
 
 @Repository
-public class CollegeDAOImpl extends BaseDAOImpl<CollegeDTO> {
+public class CollegeDAOImpl extends BaseDAOImpl<CollegeDTO> implements CollegeDAOInt {
 
 	@Override
 	public Class<CollegeDTO> getDTOClass() {
