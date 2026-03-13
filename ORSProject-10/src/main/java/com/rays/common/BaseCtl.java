@@ -51,7 +51,9 @@ public class BaseCtl<T extends BaseDTO, S extends BaseServiceInt<T>, F extends B
 
 	@ModelAttribute
 	public void setUserContext(HttpSession session) {
+		
 		userContext = (UserContext) session.getAttribute("userContext");
+		
 		if (userContext == null) {
 			UserDTO dto = new UserDTO();
 			dto.setLogin("krati@gmail.com");
@@ -71,82 +73,79 @@ public class BaseCtl<T extends BaseDTO, S extends BaseServiceInt<T>, F extends B
 			return res;
 		}
 		
-		try {
-			T dto = form.getDto();
+		T dto = form.getDto();
+		
+		if (dto.getUniqueKey() != null && !dto.getUniqueKey().equals("")) {
 			
-			if (dto.getUniqueKey() != null && !dto.getUniqueKey().equals("")) {
-				
-		        T existsDTO = service.findByUniqueKey(dto.getUniqueKey(), dto.getUniqueValue(), userContext);
+	        T existsDTO = service.findByUniqueKey(dto.getUniqueKey(), dto.getUniqueValue(), userContext);
 
-		        if (existsDTO != null && (dto.getId() == null || !existsDTO.getId().equals(dto.getId()))) {
-		            res.addMessage(dto.getLabel() + " already exists");
-		            res.setSuccess(false);
-		            return res;
-		        }
-		    }
-			
-//			if (dto.getId() != null && dto.getId() > 0) {
-//				System.out.println("before find by unique key");
-//				T existsDTO = service.findByUniqueKey(dto.getUniqueKey(), dto.getUniqueValue(), userContext);
-//				System.out.println(" data " + existsDTO);
-//				if (existsDTO != null && existsDTO.getId() != dto.getId()) {
-//					res.addMessage(dto.getLabel() + " already exists");
-//					res.setSuccess(false);
-//					return res;
-//				}
-//			} else if (dto.getUniqueKey() != null && !dto.getUniqueKey().equals("")) {
-//				T existsDTO = service.findByUniqueKey(dto.getUniqueKey(), dto.getUniqueValue(), userContext);
-//				if (existsDTO != null) {
-//					res.addMessage(dto.getLabel() + " already exists while adding");
-//					res.setSuccess(false);
-//					return res;
-//				}
+	        if (existsDTO != null && (dto.getId() == null || !existsDTO.getId().equals(dto.getId()))) {
+	            res.addMessage(dto.getLabel() + " already exists");
+	            res.setSuccess(false);
+	            return res;
+	        }
+	    }
+		
+//		if (dto.getId() != null && dto.getId() > 0) {
+//			System.out.println("before find by unique key");
+//			T existsDTO = service.findByUniqueKey(dto.getUniqueKey(), dto.getUniqueValue(), userContext);
+//			System.out.println(" data " + existsDTO);
+//			if (existsDTO != null && existsDTO.getId() != dto.getId()) {
+//				res.addMessage(dto.getLabel() + " already exists");
+//				res.setSuccess(false);
+//				return res;
 //			}
-			
-			Long exId = dto.getId();
-			
-			long id = service.save(dto, userContext);
-			System.out.println(id + " zjkdfkcu " + dto.getId());
-			if (id > 0 && exId == null) {
-				res.addMessage(dto.getTableName() + " added successfully");
-				res.addData(dto);
-			} else if (id == dto.getId()) {
-				res.addMessage(dto.getTableName() + " updated successfully");
-				res.addData(dto);
-			} else {
-				res.addMessage("issue in adding");
-				res.setSuccess(false);
-			}
-			
-		} catch (Exception e) {
-			res.setSuccess(false);
-			res.addMessage(e.getMessage());
-			e.printStackTrace();
-		}
+//		}
+		
+//		else if (dto.getUniqueKey() != null && !dto.getUniqueKey().equals("")) {
+//			T existsDTO = service.findByUniqueKey(dto.getUniqueKey(), dto.getUniqueValue(), userContext);
+//			if (existsDTO != null) {
+//				res.addMessage(dto.getLabel() + " already exists while adding");
+//				res.setSuccess(false);
+//				return res;
+//			}
+//		}
+		
+		Long exId = dto.getId();
+		
+		long id = service.save(dto, userContext);
+	
+		if (exId == null) {
+			res.addMessage(dto.getTableName() + " added successfully");
+			res.addData(dto);
+		} else {
+			res.addMessage(dto.getTableName() + " updated successfully");
+			res.addData(dto);
+		} 
 		return res;
 	}
 	
 	
-	@PostMapping(value = "delete/{ids}")
-	public ORSResponse delete(@PathVariable long[] ids) {
-		
-		ORSResponse res = new ORSResponse(true);
+	@PostMapping("delete/{ids}")
+	public ORSResponse delete(@PathVariable long[] ids, @RequestParam("pageNo") int pageNo,
+			@RequestBody F form) {
 
-		try {
-			for (long id : ids) {
-				service.delete(id, userContext);
-			}
-//			T dto = form.getDto();
-//			 List<T> list = service.search(dto, pageNo, pageSize, userContext);
-//			 List<T> nextList = service.search(dto, pageNo + 1, pageSize, userContext);
-			 
-			res.addMessage("data deleted successfully");
-		} catch (Exception e) {
-			res.setSuccess(false);
-			res.addMessage(e.getMessage());
-		}
-		return res;
+		ORSResponse res = new ORSResponse(true);
 		
+		for (long id : ids) {
+			service.delete(id, userContext);
+		}
+		
+		T dto = (T) form.getDto();
+
+		List<T> list = service.search(dto, pageNo, pageSize, userContext);
+		List<T> nextList = service.search(dto, pageNo + 1, pageSize, userContext);
+		if (list.size() == 0) {
+			res.setSuccess(false);
+			res.addMessage("Record not found..!!");
+		} else {
+			res.setSuccess(true);
+			res.addMessage("Records Deleted Successfully");
+			res.addData(list);
+			res.addResult("nextListSize", nextList.size());
+		}
+		
+		return res;
 	}
 	
 	
