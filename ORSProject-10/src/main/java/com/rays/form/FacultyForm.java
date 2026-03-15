@@ -36,19 +36,19 @@ public class FacultyForm extends BaseForm<FacultyDTO> {
 
 	@NotNull(message = "College is required")
 	@Min(1)
-	private Long collegeId = 0L;
+	private Long collegeId;
 
 	private String collegeName;
 
 	@NotNull(message = "Course is required")
 	@Min(1)
-	private Long courseId = 0L;
+	private Long courseId;
 
 	private String courseName;
 
 	@NotNull(message = "Subject is required")
 	@Min(1)
-	private Long subjectId = 0L;
+	private Long subjectId;
 
 	private String subjectName;
 

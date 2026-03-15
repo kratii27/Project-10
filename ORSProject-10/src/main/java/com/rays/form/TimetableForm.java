@@ -12,14 +12,12 @@ import com.rays.dto.TimetableDTO;
 public class TimetableForm extends BaseForm<TimetableDTO> {
 	
 	@NotNull(message = "Course is required")
-	@Min(1)
-	private Long courseId = 0L;
+	private Long courseId;
 
 	private String courseName;
 
 	@NotNull(message = "Subject is required")
-	@Min(1)
-	private Long subjectId = 0L;
+	private Long subjectId;
 
 	private String subjectName;
 

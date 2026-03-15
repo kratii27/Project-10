@@ -27,7 +27,7 @@ public class SubjectCtl extends BaseCtl<SubjectDTO, SubjectServiceInt, SubjectFo
 	@GetMapping("/preload")
 	public ORSResponse preload() {
 		
-		ORSResponse res = new ORSResponse();
+		ORSResponse res = new ORSResponse(true);
 		
 		List<DropdownList> courseList = courseService.search(new CourseDTO(), userContext);
 		

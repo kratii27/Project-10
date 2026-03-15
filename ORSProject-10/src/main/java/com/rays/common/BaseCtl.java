@@ -121,8 +121,8 @@ public class BaseCtl<T extends BaseDTO, S extends BaseServiceInt<T>, F extends B
 	}
 	
 	
-	@PostMapping("delete/{ids}")
-	public ORSResponse delete(@PathVariable long[] ids, @RequestParam("pageNo") int pageNo,
+	@PostMapping("deleteMany/{ids}")
+	public ORSResponse deleteMany(@PathVariable long[] ids, @RequestParam("pageNo") int pageNo,
 			@RequestBody F form) {
 
 		ORSResponse res = new ORSResponse(true);
