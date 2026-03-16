@@ -10,6 +10,15 @@ import { StudentComponent } from './student/student.component';
 import { MarksheetComponent } from './marksheet/marksheet.component';
 import { TimetableComponent } from './timetable/timetable.component';
 import { FacultyComponent } from './faculty/faculty.component';
+import { RoleListComponent } from './role/role-list.component';
+import { UserListComponent } from './user/user-list.component';
+import { CourseListComponent } from './course/course-list.component';
+import { CollegeListComponent } from './college/college-list.component';
+import { SubjectListComponent } from './subject/subject-list.component';
+import { StudentListComponent } from './student/student-list.component';
+import { MarksheetListComponent } from './marksheet/marksheet-list.component';
+import { FacultyListComponent } from './faculty/faculty-list.component';
+import { TimetableListComponent } from './timetable/timetable-list.component';
 
 const routes: Routes = [
   {
@@ -56,6 +65,42 @@ const routes: Routes = [
   {
     path: 'faculty',
     component: FacultyComponent
+  },
+  {
+    path: 'rolelist',
+    component: RoleListComponent
+  },
+  {
+    path: 'userlist',
+    component: UserListComponent
+  },
+  {
+    path: 'collegelist',
+    component: CollegeListComponent
+  },
+  {
+    path: 'courselist',
+    component: CourseListComponent
+  },
+  {
+    path: 'subjectlist',
+    component: SubjectListComponent
+  },
+  {
+    path: 'studentlist',
+    component: StudentListComponent
+  },
+  {
+    path: 'marksheetlist',
+    component: MarksheetListComponent
+  },
+  {
+    path: 'facultylist',
+    component: FacultyListComponent
+  },
+  {
+    path: 'timetablelist',
+    component: TimetableListComponent
   }
 ];
 
