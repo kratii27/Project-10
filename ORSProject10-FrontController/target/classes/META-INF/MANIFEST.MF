@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Built-By: krati
+Build-Jdk: 17.0.12
+Implementation-Title: ORSProject10-FrontController
+Implementation-Version: 0.0.1-SNAPSHOT
+Implementation-Vendor-Id: com.rays
+Implementation-URL: https://projects.spring.io/spring-boot/#/spring-boot
+ -starter-parent/ORSProject10-FrontController
+Created-By: Maven Integration for Eclipse
+
