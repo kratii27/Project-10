@@ -50,13 +50,11 @@ public class BaseCtl<T extends BaseDTO, S extends BaseServiceInt<T>, F extends B
 	public UserContext userContext = null;
 
 	@ModelAttribute
-	public void setUserContext(HttpSession session) {
-		
-		userContext = (UserContext) session.getAttribute("userContext");
-		
+	public void setUserContext() {
+		userContext = UserContextHolder.getContext();
 		if (userContext == null) {
 			UserDTO dto = new UserDTO();
-			dto.setLogin("krati@gmail.com");
+			dto.setLogin("krati@gmail.com"); 
 			userContext = new UserContext(dto);
 		}
 	}

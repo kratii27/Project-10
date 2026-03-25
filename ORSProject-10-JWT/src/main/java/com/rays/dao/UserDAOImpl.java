@@ -55,15 +55,27 @@ public class UserDAOImpl extends BaseDAOImpl<UserDTO> implements UserDAOInt {
 	
 	@Override
 	protected void populate(UserDTO dto, UserContext userContext) {
-		if (dto.getRoleId() != null && dto.getRoleId() > 0) {
-			RoleDTO roleDTO = roleDao.findByPk(dto.getRoleId(), userContext);
-			dto.setRoleName(roleDTO.getName());
-		}
-		
-		if (dto.getId() != null && dto.getId() > 0) {
-			UserDTO user = findByPk(dto.getId(), userContext);
-			dto.setLastLogin(user.getLastLogin());
-		}
+
+	    if (dto.getRoleId() != null && dto.getRoleId() > 0) {
+	        RoleDTO roleDTO = roleDao.findByPk(dto.getRoleId(), userContext);
+	        if (roleDTO != null) {
+	            dto.setRoleName(roleDTO.getName());
+	        }
+	    }
+
+	    if (dto.getId() != null && dto.getId() > 0) {
+	        UserDTO user = findByPk(dto.getId(), userContext);
+	        if (user != null) {
+	            dto.setLastLogin(user.getLastLogin());
+	        }
+	    }
+
+	    if (dto.getId() != null && dto.getId() > 0) {
+	        UserDTO userData = findByPk(dto.getId(), null);
+	        if (userData != null) {
+	            dto.setImageId(userData.getImageId());
+	        }
+	    }
 	}
 
 }
